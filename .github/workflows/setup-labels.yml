@@ -1,0 +1,68 @@
+name: Setup Repository Labels
+
+on:
+  workflow_dispatch: # Manual trigger
+  push:
+    branches: [ main ]
+    paths: [ '.github/workflows/setup-labels.yml' ]
+
+jobs:
+  setup-labels:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Setup labels
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const labels = [
+            // Size labels
+            { name: 'size/XS', color: '3CBF00', description: 'Very small change (< 10 lines)' },
+            { name: 'size/S', color: '5D9CEC', description: 'Small change (< 50 lines)' },
+            { name: 'size/M', color: 'FFC300', description: 'Medium change (< 200 lines)' },
+            { name: 'size/L', color: 'FF6B35', description: 'Large change (< 500 lines)' },
+            { name: 'size/XL', color: 'C70039', description: 'Very large change (500+ lines)' },
+            
+            // Architecture labels
+            { name: 'domain', color: '0E8A16', description: 'Changes to domain layer' },
+            { name: 'application', color: '1D76DB', description: 'Changes to application layer' },
+            { name: 'infrastructure', color: '5319E7', description: 'Changes to infrastructure layer' },
+            { name: 'strategy', color: 'B60205', description: 'Changes to strategy layer' },
+            { name: 'preset', color: 'FBCA04', description: 'Changes to preset system' },
+            
+            // Type labels
+            { name: 'tests', color: '006B75', description: 'Test-related changes' },
+            { name: 'documentation', color: '0075CA', description: 'Documentation updates' },
+            { name: 'dependencies', color: 'D93F0B', description: 'Dependency updates' },
+            { name: 'bug', color: 'D73A4A', description: 'Bug fix' },
+            { name: 'enhancement', color: 'A2EEEF', description: 'New feature or enhancement' },
+            { name: 'refactor', color: 'E4E669', description: 'Code refactoring' },
+            { name: 'performance', color: '7057FF', description: 'Performance improvement' },
+            
+            // Review labels
+            { name: 'needs-review', color: 'FBCA04', description: 'Needs code review' },
+            { name: 'ready-to-merge', color: '0E8A16', description: 'Ready to be merged' },
+            { name: 'work-in-progress', color: 'FFC300', description: 'Work in progress' },
+            { name: 'blocked', color: 'D73A4A', description: 'Blocked by dependencies' }
+          ];
+          
+          const { owner, repo } = context.repo;
+          
+          for (const label of labels) {
+            try {
+              await github.rest.issues.createLabel({
+                owner,
+                repo,
+                name: label.name,
+                color: label.color,
+                description: label.description
+              });
+              console.log(`✅ Created label: ${label.name}`);
+            } catch (error) {
+              if (error.status === 422) {
+                console.log(`ℹ️  Label already exists: ${label.name}`);
+              } else {
+                console.log(`❌ Error creating label ${label.name}: ${error.message}`);
+              }
+            }
+          }
