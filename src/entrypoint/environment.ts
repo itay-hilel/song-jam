@@ -5,7 +5,7 @@ config();
 export const environment = {
   server: {
     runtime: process.env.SERVER_RUNTIME || 'local',
-    port: parseInt(process.env.PORT, 10) || 3000,
+    port: parseInt(process.env.PORT || '3000', 10),
   },
   database: {
     url: process.env.DATABASE_URL,

@@ -19,7 +19,7 @@ export class SonoClient {
             });
             return response.data;
         } catch (error) {
-            throw new Error(`Sono API error: ${error.message}`);
+            throw new Error(`Sono API error: ${error instanceof Error ? error.message : 'Unknown error'}`);
         }
     }
 }

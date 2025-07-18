@@ -35,4 +35,9 @@ export class PostgresSessionAdapter implements SessionRepository {
   async deleteSession(sessionId: string): Promise<void> {
     await this.pool.query('DELETE FROM sessions WHERE id = $1', [sessionId]);
   }
+
+  async getAllSessions(): Promise<Session[]> {
+    const result = await this.pool.query('SELECT * FROM sessions ORDER BY created_at DESC');
+    return result.rows;
+  }
 }

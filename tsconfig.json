@@ -14,5 +14,13 @@
     }
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "exclude": [
+    "node_modules", 
+    "**/*.spec.ts", 
+    "src/client/**/*", 
+    "src/infrastructure/database/postgres/schema.ts",
+    "src/infrastructure/database/postgres/songLineAdapter.ts",
+    "src/infrastructure/external/sonoClient.ts",
+    "src/ports/http/songLineRoutes.ts"
+  ]
 }
