@@ -1,0 +1,43 @@
+{
+  "name": "song-jam",
+  "version": "1.0.0",
+  "description": "A real-time collaborative music creation platform.",
+  "main": "src/entrypoint/server.ts",
+  "scripts": {
+    "start": "ts-node src/entrypoint/server.ts",
+    "dev": "ts-node-dev src/entrypoint/server.ts",
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint . --ext .ts,.tsx"
+  },
+  "dependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.0.14",
+    "axios": "^0.21.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "nodemon": "^3.1.10",
+    "pg": "^8.7.1",
+    "socket.io": "^4.0.0",
+    "zod": "^4.0.5"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.27.0",
+    "@typescript-eslint/parser": "^4.27.0",
+    "eslint": "^7.27.0",
+    "jest": "^27.0.0",
+    "ts-node": "^10.0.0",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.3.2"
+  },
+  "keywords": [
+    "music",
+    "collaboration",
+    "AI",
+    "real-time"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
